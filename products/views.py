@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import DivisionForm, LineForm
-from .models import Division, Line
+from .forms import DivisionForm, LineForm , CategoryForm, UnitForm, EquivalenceForm
+from .models import Division, Line, Category, Unit, Equivalence
 from django.contrib import messages 
 
 def RegisterProduct(request):
@@ -48,3 +48,54 @@ def add_lines(request):
 	
 	context = {'form': form}
 	return render(request, 'products/add_lines.html',context)
+
+def index_category(request):
+	categories = Category.objects.all()
+	return render(request,'products/categories.html',{'categories': categories})
+
+def add_category(request):
+	if request.method == 'POST':
+		form = CategoryForm(request.POST)
+		if form.is_valid():
+			form.save()
+			messages.success(request,('You have added a new category...'))
+			return redirect('home')
+	else:
+		form = CategoryForm()
+	
+	context = {'form': form}
+	return render(request, 'products/add_category.html',context)
+
+def index_unit(request):
+	units = Unit.objects.all()
+	return render(request,'products/units.html',{'units': units})
+
+def add_unit(request):
+	if request.method == 'POST':
+		form = UnitForm(request.POST)
+		if form.is_valid():
+			form.save()
+			messages.success(request,('You have added a new unit...'))
+			return redirect('home')
+	else:
+		form = UnitForm()
+	
+	context = {'form': form}
+	return render(request, 'products/add_unit.html',context)
+
+def index_equivalence(request):
+	equivalences = Equivalence.objects.all()
+	return render(request,'products/equivalences.html',{'equivalences': equivalences})
+
+def add_equivalence(request):
+	if request.method == 'POST':
+		form = EquivalenceForm(request.POST)
+		if form.is_valid():
+			form.save()
+			messages.success(request,('You have added a new equivalence...'))
+			return redirect('home')
+	else:
+		form = EquivalenceForm()
+	
+	context = {'form': form}
+	return render(request, 'products/add_equivalent.html',context)

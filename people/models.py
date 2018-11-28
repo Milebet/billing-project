@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
-from django.template.defaultfilters import slugify
 from django.utils import timezone
 
 #crear los documents primero por shell
@@ -54,7 +53,7 @@ class Person(models.Model):
 	second_last_name = models.CharField(max_length=30, blank=True)
 	email = models.EmailField(max_length=100)
 	direction = models.TextField()
-	document_type = models.ForeignKey(DocumentType, on_delete=models.SET_DEFAULT, default='', null=True)
+	document_type = models.ForeignKey(DocumentType, on_delete=models.SET_DEFAULT, default=1, null=True)
 	person_type = models.ForeignKey(PersonType, on_delete=models.SET_DEFAULT, default=1, null=True)
 	phones = GenericRelation(Phone)
 	register_at = models.DateTimeField(default=timezone.now)

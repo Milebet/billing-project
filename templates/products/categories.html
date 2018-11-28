@@ -27,11 +27,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                       		{% for line in lines %}
+                       		{% for category in categories %}
                                 <tr class="odd gradeX">
-                                    <td>{{line.name}}</td>
-                                    <td>{{line.description}}</td>
-                                    <td>{{line.status}}</td>
+                                    <td>{{category.name}}</td>
+                                    <td>{{category.description}}</td>
+                                    <td>{{category.status}}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>

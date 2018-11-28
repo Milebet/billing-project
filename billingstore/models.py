@@ -13,15 +13,10 @@ class Company(models.Model):
 	description = models.TextField(blank=True)
 	OPTIONS_STATUS = (('active','Active'),('inactive', 'Inactive'),)
 	status = models.CharField(max_length=10, choices=OPTIONS_STATUS, default='active',)
-	slug = models.CharField(max_length=200, blank=True)
 	register_at = models.DateTimeField(default=timezone.now)
 
 	def __str__(self):
 		return self.name
-
-	def save(self, *args, **kwargs):
-		self.slug = slugify(self.name)
-		super(Company, self).save(*args, **kwargs)
 
 	def register_date_pretty(self):
 		return self.register_at.strftime('%b %e %Y')
@@ -48,7 +43,7 @@ class Brand(models.Model):
 	description = models.TextField(blank=True)
 	OPTIONS_STATUS = (('active','Active'),('inactive', 'Inactive'),)
 	status = models.CharField(max_length=10, choices=OPTIONS_STATUS, default='active',)
-	company = models.ForeignKey(Company, on_delete=models.CASCADE, default='')
+	company = models.ForeignKey(Company, on_delete=models.CASCADE, default=1)
 	cities = models.ManyToManyField(City)
 	phones = GenericRelation(Phone)
 	register_at = models.DateTimeField(default=timezone.now)

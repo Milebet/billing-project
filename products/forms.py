@@ -1,6 +1,7 @@
 from django import forms
+from django.forms import ModelChoiceField
 from django.forms import ModelForm
-from .models import Division, Line, Category
+from .models import Division, Line, Category, Unit, Equivalence
 
 class DivisionForm(ModelForm):
 	
@@ -55,17 +56,18 @@ class CategoryForm(ModelForm):
 	class Meta:
 		model = Category
 		fields = '__all__'
+		fields_order = ('line', 'parent', 'name', 'description', 'status')
 
 	def __init__(self, *args, **kwargs):
-		super(LineForm,self).__init__(*args, **kwargs)
+		super(CategoryForm,self).__init__(*args, **kwargs)
 
 		self.fields['name'].widget.attrs['class'] = 'form-control'
 		self.fields['name'].widget.attrs['placeholder'] = 'Introduzca un valor'
-		self.fields['name'].label = 'Nombre Linea'
-		self.fields['name'].help_text = '<span class="form-text text-muted"><small>Ejemplo: Carne roja, carne blanca</small></span>'
+		self.fields['name'].label = 'Nombre Cateoria'
+		self.fields['name'].help_text = '<span class="form-text text-muted"><small>Ejemplo:</small></span>'
 
 		self.fields['description'].widget.attrs['class'] = 'form-control'
-		self.fields['description'].widget.attrs['placeholder'] = 'Inrese un breve texto'
+		self.fields['description'].widget.attrs['placeholder'] = 'Ingrese un breve texto'
 		self.fields['description'].label = 'Descripción'
 
 		self.fields['status'].widget.attrs['class'] = 'form-control'
@@ -76,3 +78,33 @@ class CategoryForm(ModelForm):
 
 		self.fields['parent'].widget.attrs['class'] = 'form-control'
 		self.fields['parent'].label = 'Categoria padre'
+		self.fields['parent'].required = False 
+
+class UnitForm(ModelForm):
+	
+	class Meta:
+		model = Unit
+		fields = '__all__'
+
+	def __init__(self, *args, **kwargs):
+		super(UnitForm,self).__init__(*args, **kwargs)
+
+		self.fields['name'].widget.attrs['class'] = 'form-control'
+		self.fields['name'].label = 'Unidad de Medida'
+
+class EquivalenceForm(ModelForm):
+	
+	class Meta:
+		model = Equivalence
+		fields = '__all__'
+		fields_order = ('unit', 'base_unit', 'equivalence_unit','value')
+
+	def __init__(self, *args, **kwargs):
+		super(EquivalenceForm,self).__init__(*args, **kwargs)
+
+		self.fields['base_unit'].widget.attrs['class'] = 'form-control'
+		self.fields['base_unit'].label = 'Unidad de Medida'
+		self.fields['equivalence_unit'].widget.attrs['class'] = 'form-control'
+		self.fields['equivalence_unit'].label = 'Unidad de Equivalencia'
+		self.fields['value'].widget.attrs['class'] = 'form-control'
+		self.fields['value'].label = 'Valor'
