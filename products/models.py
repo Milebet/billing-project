@@ -8,24 +8,24 @@ class Division(models.Model):
 	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
 	company = models.ForeignKey(Company, on_delete=models.SET_DEFAULT, default=1)
 
-#class Line(models.Model):
-#	name = models.CharField(max_length=200)
-#	description = models.TextField()
-#	OPTION_STATUS = (('active','Activo'),('inactive','Inactivo'))
-#	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
-#	division = models.ForeignKey(Division, on_delete=models.CASCADE, default='')
-#
+class Line(models.Model):
+	name = models.CharField(max_length=200)
+	description = models.TextField()
+	OPTION_STATUS = (('active','Activo'),('inactive','Inactivo'))
+	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
+	division = models.ForeignKey(Division, on_delete=models.CASCADE, default=1)
+
 #class Unit(models.Model):
 #	name = models.CharField(max_length=100)
 #
-#class Category(models.Model):
-#	name = models.CharField(max_length=200)
-#	description = models.TextField()
-#	OPTION_STATUS = (('active','Activo'),('inactive','Inactivo'))
-#	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
-#	line = models.ForeignKey(Line, on_delete=models.CASCADE, default='')
-#	parent = models.ForeignKey('self', on_delete=models.CASCADE)
-#
+class Category(models.Model):
+	name = models.CharField(max_length=200)
+	description = models.TextField()
+	OPTION_STATUS = (('active','Activo'),('inactive','Inactivo'))
+	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
+	line = models.ForeignKey(Line, on_delete=models.CASCADE, default=1)
+	parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True)
+
 #class Product(models.Model):
 #	code = models.CharField(max_length=100, unique=True)
 #	full_name = models.CharField(max_length=200)
