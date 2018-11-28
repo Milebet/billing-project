@@ -1,0 +1,174 @@
+{% extends 'navigation/base.html' %}
+{% block content %}
+	<div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Mis datos personales</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+	     <div class="col-md-10 col-md-offset-1">
+		    <div class="panel panel-default">
+		        <div class="panel-body">
+		        	<div class="row">
+		                <div class="col-lg-12">
+		                    <div class="panel panel-default">
+		                        <div class="panel-heading">
+		                            Mi Perfil
+		                        </div>
+		                        <!-- /.panel-heading -->
+		                        <div class="panel-body">
+		                            <!-- Nav tabs -->
+		                            <ul class="nav nav-tabs">
+		                                <li class="active"><a href="#my_info" data-toggle="tab">Datos de la Persona</a>
+		                                </li>
+		                                <li><a href="#profile" data-toggle="tab">Datos de Usuario</a>
+		                                </li>
+		                            </ul>
+
+		                            <!-- Tab panes -->
+		                            <div class="tab-content">
+		                                <div class="tab-pane fade in active" id="my_info">
+		                                    <div class="col-md-8">
+									            <div class="table-responsive">
+										            <table class="table table-condensed table-responsive table-user-information">
+										                <tbody>
+										                    <tr>        
+										                        <td>
+										                            <strong>
+										                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
+										                                Identificacion                                                
+										                            </strong>
+										                        </td>
+										                        <td class="text-primary">
+										                            {{user.person.document_id}}    
+										                        </td>
+										                    </tr>
+										                    <tr>    
+										                        <td>
+										                            <strong>
+										                                <span class="glyphicon glyphicon-user  text-primary"></span>    
+										                                Primer Nombre                                                
+										                            </strong>
+										                        </td>
+										                        <td class="text-primary">
+										                            {{user.person.first_name}}     
+										                        </td>
+										                    </tr>
+										                    <tr>        
+										                        <td>
+										                            <strong>
+										                                <span class="glyphicon glyphicon-cloud text-primary"></span>  
+										                                Segundo Apellido                                                
+										                            </strong>
+										                        </td>
+										                        <td class="text-primary">
+										                            {{user.person.second_name}}   
+										                        </td>
+										                    </tr>
+
+										                    <tr>        
+										                        <td>
+										                            <strong>
+										                                <span class="glyphicon glyphicon-bookmark text-primary"></span> 
+										                                Primer Apellido                                                
+										                            </strong>
+										                        </td>
+										                        <td class="text-primary">
+										                            {{user.person.last_name}} 
+										                        </td>
+										                    </tr>
+
+
+										                    <tr>        
+										                        <td>
+										                            <strong>
+										                                <span class="glyphicon glyphicon-eye-open text-primary"></span> 
+										                                Segundo Apellido                                                 
+										                            </strong>
+										                        </td>
+										                        <td class="text-primary">
+										                            {{user.person.second_last_name}} 
+										                        </td>
+										                    </tr>
+										                    <tr>        
+										                        <td>
+										                            <strong>
+										                                <span class="glyphicon glyphicon-envelope text-primary"></span> 
+										                                Correo Electrónico                                                
+										                            </strong>
+										                        </td>
+										                        <td class="text-primary">
+										                            {{user.person.email}} 
+										                        </td>
+										                    </tr>
+										                    <tr>        
+										                        <td>
+										                            <strong>
+										                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+										                                Dirección                                                
+										                            </strong>
+										                        </td>
+										                        <td class="text-primary">
+										                            {{user.person.direction}} 
+										                        </td>
+										                    </tr>                                  
+										                </tbody>
+										            </table>
+									            </div>
+									         </div>
+		                                </div>
+		                                <div class="tab-pane fade" id="profile">
+		                                    <div class="col-md-8">
+									            <div class="table-responsive">
+										            <table class="table table-condensed table-responsive table-user-information">
+										                <tbody>
+										                    <tr>        
+										                        <td>
+										                            <strong>
+										                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
+										                                Username                                                
+										                            </strong>
+										                        </td>
+										                        <td class="text-primary">
+										                            {{user.username}}    
+										                        </td>
+										                    </tr>
+										                     <tr>        
+										                        <td>
+										                            <strong>
+										                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
+										                                Estatus:                                                
+										                            </strong>
+										                        </td>
+										                        <td class="text-primary">
+										                            {{user.status_user}}    
+										                        </td>
+										                    </tr>
+										                     <tr>        
+										                        <td>
+										                            <strong>
+										                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
+										                                Tipo de Usuario:                                                
+										                            </strong>
+										                        </td>
+										                        <td class="text-primary">
+										                            {{user.rol_user}}    
+										                        </td>
+										                    </tr>                        
+										                </tbody>
+										            </table>
+									            </div>
+									         </div>
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <!-- /.panel-body -->
+		                    </div>
+		                    <!-- /.panel -->
+		                </div>
+		                <!-- /.col-lg-6 -->
+		            </div>
+		        </div>
+		    </div>
+		</div>
+    </div>
+{% endblock %}

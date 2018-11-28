@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		{% load staticfiles %}
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+
+	    <title>{% block title %}Facturación {% endblock %}</title>
+
+	    <!-- Bootstrap Core CSS -->
+	    <link href="../../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	    <!-- MetisMenu CSS -->
+	    <link href="../../static/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+	    <!-- Custom CSS -->
+	    <link href="../../static/dist/css/sb-admin-2.css" rel="stylesheet">
+
+	    <!-- Custom Fonts -->
+	    <link href="../../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	</head>
+
+	<body>
+    <div id="wrapper">
+	   <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'home'%}">Facturación</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+            	{% if user.is_authenticated %}
+	 				<li class="dropdown">
+	                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-user">
+	                        <li><a href="{% url 'my_personal_info' %}"><i class="fa fa-user fa-fw"></i> Mi Cuenta</a>
+	                        </li>
+	                        <li><a href="{% url 'edit' %}"><i class="fa fa-gear fa-fw"></i> Actualizar Cuenta</a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>
+	                        </li>
+	                    </ul>
+                    </li>
+	                    <!-- /.dropdown-user -->
+	                </li>
+	                <!-- /.dropdown -->
+            	{% else %}
+            		<ul class="nav navbar-top-links navbar-right navbar-nav ml-auto">
+                        <li class="nav-item "><a href="{% url 'login'%}"><i class="fa fa-sign-out fa-fw"></i>Iniciar Sesión</a>
+                        </li>
+	                 </ul>
+            	{% endif %}
+            </ul>
+            <!-- /.navbar-top-links -->
+            {% if user.is_authenticated %}
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li>
+                                <a href="{% url 'home' %}"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Empresa<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    
+                                    <li>
+                                    <a href="{% url 'store:company_info' company.id %}">Ver Empresa {{company.name}}</a>
+                                        <a href="{% url 'store:brand_info' company.id company.brand_set.first.id %}">Ver Sucursal</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Usuarios<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{% url 'signup' %}">Registrar Usuarios</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'index' %}">Listar Usuarios</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-wrench fa-fw"></i>Productos<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{% url 'register_product' %}">Registrar Productos</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'index_products' %}">Listar Productos</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'stock' %}">Productos de Baja</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'damaged_products' %}">Almacen Actual</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Proveedores<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{% url 'register_provider' %}">Registrar Proveedores</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'index_providers' %}">Listar Proveedores</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-files-o fa-fw"></i> Clientes<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{% url 'register_customer' %}">Registrar Clientes</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'index_customers' %}">Listar Clientes</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-files-o fa-fw"></i> Facturas<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="blank.html">Facturas Clientes</a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="{% url 'generate_invoice' %}">Generar Factura</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'search_invoice' %}">Consultar Facturas</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="login.html">Facturas Proveedor</a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="{% url 'generate_invoice_provider' %}">Generar Factura</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'search_invoice_provider' %}">Consultar Facturas</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Reportes<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{% url 'generate_report' %}">Solicitar Reporte</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'downloaded_reports' %}">Descarga de Reportes</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Pagos<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{% url 'search_payment' %}">Consultar Pagos</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+            {% else %}
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li>
+                                <a href="{% url 'home' %}"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Empresa<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{% url 'company_info'%}">Ver Empresa</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'brand_info'%}">Ver Sucursal</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+            {% endif %}
+        </nav>
+		<div id="page-wrapper">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-warning alert-dismissable" role="alert">
+                <button class="close" data-dismiss="alert">
+                  <small><sup></sup></small>
+                </button>
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+	        {% block content%}
+	        {% endblock%}
+        </div>
+	    <!-- jQuery -->
+	    <script src="../../static/vendor/jquery/jquery.min.js"></script>
+
+	    <!-- Bootstrap Core JavaScript -->
+	    <script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+	    <!-- Metis Menu Plugin JavaScript -->
+	    <script src="../../static/vendor/metisMenu/metisMenu.min.js"></script>
+
+	    <!-- Custom Theme JavaScript -->
+	    <script src="../../static/dist/js/sb-admin-2.js"></script>
+	</body>
+</html>

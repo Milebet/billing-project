@@ -1,0 +1,33 @@
+{% extends 'navigation/base.html' %}
+
+{% block title %}Editar Datos Personales{% endblock %}
+
+{% block content %}
+	<div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Editar mis datos personales</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+	     <div class="col-md-10 col-md-offset-1">
+		    <div class="panel panel-default">
+		        <div class="panel-heading">
+		            <h3 class="panel-title">Por favor, llene los siguientes campos</h3>
+		        </div>
+		        <div class="panel-body">
+	        		<form method="post" role="form"> 
+	        			 <fieldset>
+							{% csrf_token %}
+							<div class="col-xs-8 col-md-offset-2">
+								{{ form.as_p}}
+								<button class="btn btn-primary" type="submit"> Actualizar </button>
+							</div>
+						 </fieldset>
+					</form>
+					<br/>
+						<p><small><a href="{% url 'edit' %}">Pulsa aqui</a> para cambiar tus datos de usuario</small></p>
+						<p><small><a href="{% url 'change_password' %}">Pulsa aqui</a> para cambiar tu contraseña</small></p>
+		        </div>
+		    </div>
+		</div>
+    </div>
+{% endblock %}
