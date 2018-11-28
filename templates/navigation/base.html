@@ -97,19 +97,80 @@
                                 <!-- /.nav-second-level -->
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i>Productos<span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-files-o fa-fw"></i> Productos<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="{% url 'register_product' %}">Registrar Productos</a>
+                                        <a href="#">Diviciones</a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="{% url 'add_division' %}">Agregar Divición</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'index_division' %}">Listar Divición</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li>
-                                        <a href="{% url 'index_products' %}">Listar Productos</a>
+                                        <a href="login.html">Lineas</a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="{% url 'add_lines'%}">Agregar Linea </a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'index_lines'%}">Listar Lineas </a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li>
-                                        <a href="{% url 'stock' %}">Productos de Baja</a>
+                                        <a href="login.html">Categorias</a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="{% url 'add_category' %}">Agregar Categoria </a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'index_category' %}">Listar Categorias </a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li>
-                                        <a href="{% url 'damaged_products' %}">Almacen Actual</a>
+                                        <a href="login.html">Unidades</a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="{% url 'add_unit' %}">Agregar Unidad </a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'index_unit' %}">Listar Unidades </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="login.html">Equivalencias</a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="{% url 'add_equivalence' %}">Agregar Equivalencia </a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'index_equivalence' %}">Listar Equivalencias </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-wrench fa-fw"></i>Productos<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-second-level">
+                                            <li>
+                                                <a href="{% url 'register_product' %}">Registrar Productos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'index_products' %}">Listar Productos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'stock' %}">Productos de Baja</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'damaged_products' %}">Almacen Actual</a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.nav-second-level -->
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->

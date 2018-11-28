@@ -1,13 +1,24 @@
 from django.shortcuts import render, redirect
-from .forms import DivisionForm, LineForm , CategoryForm, UnitForm, EquivalenceForm
-from .models import Division, Line, Category, Unit, Equivalence
+from .forms import DivisionForm, LineForm , CategoryForm, UnitForm, EquivalenceForm, ProductForm
+from .models import Division, Line, Category, Unit, Equivalence, Product
 from django.contrib import messages 
 
 def RegisterProduct(request):
-	return render(request,'products/register.html')
+	if request.method == 'POST':
+		form = ProductForm(request.POST)
+		if form.is_valid():
+			form.save()
+			messages.success(request,('You have added a new product...'))
+			return redirect('home')
+	else:
+		form = ProductForm()
+	
+	context = {'form': form}
+	return render(request, 'products/register.html',context)
 
 def IndexProducts(request):
-	return render(request,'products/index.html')
+	products = Product.objects.all()
+	return render(request,'products/index.html',{'products':products})
 
 def CurrentStock(request):
 	return render(request,'products/stock.html')

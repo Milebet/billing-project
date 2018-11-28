@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelChoiceField
 from django.forms import ModelForm
-from .models import Division, Line, Category, Unit, Equivalence
+from .models import Division, Line, Category, Unit, Equivalence, Product
 
 class DivisionForm(ModelForm):
 	
@@ -97,7 +97,6 @@ class EquivalenceForm(ModelForm):
 	class Meta:
 		model = Equivalence
 		fields = '__all__'
-		fields_order = ('unit', 'base_unit', 'equivalence_unit','value')
 
 	def __init__(self, *args, **kwargs):
 		super(EquivalenceForm,self).__init__(*args, **kwargs)
@@ -108,3 +107,50 @@ class EquivalenceForm(ModelForm):
 		self.fields['equivalence_unit'].label = 'Unidad de Equivalencia'
 		self.fields['value'].widget.attrs['class'] = 'form-control'
 		self.fields['value'].label = 'Valor'
+
+class ProductForm(ModelForm):
+	
+	class Meta:
+		model = Product
+		fields = '__all__'
+		fields_order = ('category', 'unit', 'code','full_name', 'short_name', 'description', 'stock', 'sale_price', 'base_unit', 'status')
+
+
+	def __init__(self, *args, **kwargs):
+		super(ProductForm,self).__init__(*args, **kwargs)
+
+		self.fields['code'].widget.attrs['class'] = 'form-control'
+		self.fields['code'].widget.attrs['placeholder'] = 'Introduzca un valor'
+		self.fields['code'].label = 'Código Producto'
+
+		self.fields['full_name'].widget.attrs['class'] = 'form-control'
+		self.fields['full_name'].widget.attrs['placeholder'] = 'Introduzca un valor'
+		self.fields['full_name'].label = 'Nombre Completo'
+
+		self.fields['short_name'].widget.attrs['class'] = 'form-control'
+		self.fields['short_name'].widget.attrs['placeholder'] = 'Introduzca un valor'
+		self.fields['short_name'].label = 'Nombre Corto'
+		self.fields['short_name'].help_text = '<span class="form-text text-muted"><small>Ejemplo: Carne, Embutidos, etc</small></span>'
+
+		self.fields['description'].widget.attrs['class'] = 'form-control'
+		self.fields['description'].label = 'Descripción'
+
+		self.fields['stock'].widget.attrs['class'] = 'form-control'
+		self.fields['stock'].widget.attrs['placeholder'] = 'Introduzca un valor'
+		self.fields['stock'].label = 'Stock'
+
+		self.fields['sale_price'].widget.attrs['class'] = 'form-control'
+		self.fields['sale_price'].widget.attrs['placeholder'] = 'Introduzca un valor'
+		self.fields['sale_price'].label = 'Precio de Venta'
+
+		self.fields['base_unit'].widget.attrs['class'] = 'form-control'
+		self.fields['base_unit'].label = 'Unidad Base'
+
+		self.fields['status'].widget.attrs['class'] = 'form-control'
+		self.fields['status'].label = 'Estatus'
+
+		self.fields['category'].widget.attrs['class'] = 'form-control'
+		self.fields['category'].label = 'Categoria'
+
+		self.fields['unit'].widget.attrs['class'] = 'form-control'
+		self.fields['unit'].label = 'Unidad'

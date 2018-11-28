@@ -61,30 +61,30 @@ class Product(models.Model):
 	OPTION_STATUS = (('active','Activo'),('inactive','Inactivo'))
 	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
 	category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=1)
-	unit = models.ForeignKey(Unit, on_delete=models.SET_DEFAULT, default='')
+	unit = models.ForeignKey(Unit, on_delete=models.SET_DEFAULT, default=1)
 #
 #
-#class AlternateCode(models.Model):
-#	code = models.CharField(max_length=100, unique=True)
-#	description = models.TextField()
-#	OPTION_STATUS = (('active','Activo'),('inactive','Inactivo'))
-#	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
-#	product = models.ForeignKey(Product, on_delete=models.CASCADE, default='')
+class AlternateCode(models.Model):
+	code = models.CharField(max_length=100, unique=True)
+	description = models.TextField()
+	OPTION_STATUS = (('active','Activo'),('inactive','Inactivo'))
+	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
+	product = models.ForeignKey(Product, on_delete=models.CASCADE, default=1)
 #
-#class InactiveProduct(models.Model):
-#	register_at = models.DateTimeField()
-#	quantity = models.IntegerField()
-#	reason = models.TextField()
-#	product = models.ForeignKey(Product, on_delete=models.SET_DEFAULT, default='')
+class InactiveProduct(models.Model):
+	register_at = models.DateTimeField()
+	quantity = models.IntegerField()
+	reason = models.TextField()
+	product = models.ForeignKey(Product, on_delete=models.SET_DEFAULT, default=1)
 #
-#class ProductBrand(models.Model):
-#	brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
-#	product = models.ForeignKey(Product, on_delete=models.CASCADE)
-#	quantity = models.IntegerField()
-#	pvp_brand = models.DecimalField( max_digits=20, decimal_places=10)
-#	pvp = models.DecimalField( max_digits=20, decimal_places=10)
-#	OPTION_STATUS = (('active','Activo'),('inactive','Inactivo'))
-#	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
+class ProductBrand(models.Model):
+	brand = models.ForeignKey(Brand, on_delete=models.CASCADE, default=1)
+	product = models.ForeignKey(Product, on_delete=models.CASCADE, default=1)
+	quantity = models.IntegerField()
+	pvp_brand = models.DecimalField( max_digits=20, decimal_places=10)
+	pvp = models.DecimalField( max_digits=20, decimal_places=10)
+	OPTION_STATUS = (('active','Activo'),('inactive','Inactivo'))
+	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
 
 
 

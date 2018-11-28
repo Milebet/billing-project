@@ -40,7 +40,8 @@ def Home(request):
 	return render(request,'registration/home.html',{'company': company})
 
 def Index(request):
-	return render(request,'users/index.html')
+	users = CustomUser.objects.all()
+	return render(request,'users/index.html',{'users': users})
 
 def edit_user(request):
 	if request.method == 'POST':
