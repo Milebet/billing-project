@@ -16,4 +16,5 @@ urlpatterns = [
 	path('index_products/',views.IndexProducts, name='index_products'),
 	path('stock/',views.CurrentStock, name='stock'),
 	path('damaged_products/',views.DamagedProducts, name='damaged_products'),
+	path('add_damagedproduct/',views.add_inactiveproduct, name='add_damagedproduct'),
 ]

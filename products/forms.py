@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelChoiceField
 from django.forms import ModelForm
-from .models import Division, Line, Category, Unit, Equivalence, Product
+from .models import Division, Line, Category, Unit, Equivalence, Product, InactiveProduct
 
 class DivisionForm(ModelForm):
 	
@@ -154,3 +154,25 @@ class ProductForm(ModelForm):
 
 		self.fields['unit'].widget.attrs['class'] = 'form-control'
 		self.fields['unit'].label = 'Unidad'
+
+class InactiveProductForm(ModelForm):
+	
+	class Meta:
+		model = InactiveProduct
+		fields = '__all__'
+
+	def __init__(self, *args, **kwargs):
+		super(InactiveProductForm,self).__init__(*args, **kwargs)
+
+		self.fields['register_at'].widget.attrs['class'] = 'form-control'
+		self.fields['register_at'].label = 'Registrado el:'
+
+		self.fields['quantity'].widget.attrs['class'] = 'form-control'
+		self.fields['quantity'].widget.attrs['placeholder'] = 'Introduzca un valor'
+		self.fields['quantity'].label = 'Cantidad'
+
+		self.fields['reason'].widget.attrs['class'] = 'form-control'
+		self.fields['reason'].label = 'Motivo de Baja'
+
+		self.fields['product'].widget.attrs['class'] = 'form-control'
+		self.fields['product'].label = 'Producto'

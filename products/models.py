@@ -62,6 +62,9 @@ class Product(models.Model):
 	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
 	category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=1)
 	unit = models.ForeignKey(Unit, on_delete=models.SET_DEFAULT, default=1)
+
+	def __str__(self):
+		return self.full_name
 #
 #
 class AlternateCode(models.Model):
@@ -70,12 +73,18 @@ class AlternateCode(models.Model):
 	OPTION_STATUS = (('active','Activo'),('inactive','Inactivo'))
 	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
 	product = models.ForeignKey(Product, on_delete=models.CASCADE, default=1)
+
+	def __str__(self):
+		return self.code
 #
 class InactiveProduct(models.Model):
 	register_at = models.DateTimeField()
 	quantity = models.IntegerField()
 	reason = models.TextField()
 	product = models.ForeignKey(Product, on_delete=models.SET_DEFAULT, default=1)
+
+	def __str__(self):
+		return self.id
 #
 class ProductBrand(models.Model):
 	brand = models.ForeignKey(Brand, on_delete=models.CASCADE, default=1)
@@ -85,6 +94,9 @@ class ProductBrand(models.Model):
 	pvp = models.DecimalField( max_digits=20, decimal_places=10)
 	OPTION_STATUS = (('active','Activo'),('inactive','Inactivo'))
 	status = models.CharField(max_length=10, choices=OPTION_STATUS, default='active',)
+
+	def __str__(self):
+		return self.id
 
 
 

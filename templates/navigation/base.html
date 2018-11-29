@@ -164,10 +164,18 @@
                                                 <a href="{% url 'index_products' %}">Listar Productos</a>
                                             </li>
                                             <li>
-                                                <a href="{% url 'stock' %}">Productos de Baja</a>
+                                                <a href="#">Productos de Baja</a>
+                                                <ul class="nav nav-second-level">
+                                                    <li>
+                                                        <a href="{% url 'add_damagedproduct' %}">Reportar Perdida</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'damaged_products' %}">Listar Productos Perdidos</a>
+                                                    </li>
+                                                </ul>
                                             </li>
                                             <li>
-                                                <a href="{% url 'damaged_products' %}">Almacen Actual</a>
+                                                <a href="{% url 'stock' %}">Almacen Actual</a>
                                             </li>
                                         </ul>
                                         <!-- /.nav-second-level -->

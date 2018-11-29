@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import DivisionForm, LineForm , CategoryForm, UnitForm, EquivalenceForm, ProductForm
-from .models import Division, Line, Category, Unit, Equivalence, Product
+from .forms import DivisionForm, LineForm , CategoryForm, UnitForm, EquivalenceForm, ProductForm, InactiveProductForm
+from .models import Division, Line, Category, Unit, Equivalence, Product, InactiveProduct
 from django.contrib import messages 
 
 def RegisterProduct(request):
@@ -110,3 +110,20 @@ def add_equivalence(request):
 	
 	context = {'form': form}
 	return render(request, 'products/add_equivalent.html',context)
+
+def DamagedProducts(request):
+	inactives = InactiveProduct.objects.all()
+	return render(request,'products/damaged.html',{'inactive_products': inactives})
+
+def add_inactiveproduct(request):
+	if request.method == 'POST':
+		form = InactiveProductForm(request.POST)
+		if form.is_valid():
+			form.save()
+			messages.success(request,('You have inactive a product...'))
+			return redirect('home')
+	else:
+		form = InactiveProductForm()
+	
+	context = {'form': form}
+	return render(request, 'products/add_inactiveproduct.html',context)
