@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from .models import Person
+from django.contrib import admin
 
 class PersonForm(ModelForm):
 	
@@ -40,7 +41,7 @@ class PersonForm(ModelForm):
 		self.fields['second_last_name'].label = 'Segundo Apellido'
 		self.fields['second_last_name'].required = False
 
-		self.fields['direction'].widget.attrs['class'] = 'form-control'
+		self.fields['direction'].widget =  admin.widgets.AdminTextareaWidget()
 		self.fields['direction'].label = 'Dirección'
 
 class EditProfileForm(ModelForm):
@@ -69,5 +70,5 @@ class EditProfileForm(ModelForm):
 		self.fields['second_last_name'].label = 'Segundo Apellido'
 		self.fields['second_last_name'].required = False
 
-		self.fields['direction'].widget.attrs['class'] = 'form-control'
+		self.fields['direction'].widget =  admin.widgets.AdminTextareaWidget()
 		self.fields['direction'].label = 'Dirección'

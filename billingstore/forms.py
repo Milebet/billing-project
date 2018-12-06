@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelChoiceField
 from django.forms import ModelForm
 from .models import Company, Brand
+from django.contrib import admin
 
 class CompanyForm(ModelForm):
 
@@ -21,11 +22,11 @@ class CompanyForm(ModelForm):
 		self.fields['name'].widget.attrs['placeholder'] = 'Introduzca un valor'
 		self.fields['name'].label = 'Nombre'
 
-		self.fields['direction'].widget.attrs['class'] = 'form-control'
+		self.fields['direction'].widget =  admin.widgets.AdminTextareaWidget()
 		self.fields['direction'].widget.attrs['placeholder'] = 'Indique la dirección'
 		self.fields['direction'].label = 'Dirección'
 
-		self.fields['description'].widget.attrs['class'] = 'form-control'
+		self.fields['description'].widget =  admin.widgets.AdminTextareaWidget()
 		self.fields['description'].widget.attrs['placeholder'] = 'Introduzca un valor'
 		self.fields['description'].label = 'Descripción'
 
@@ -55,11 +56,11 @@ class BrandForm(ModelForm):
 		self.fields['name'].widget.attrs['placeholder'] = 'Introduzca un valor'
 		self.fields['name'].label = 'Nombre'
 
-		self.fields['direction'].widget.attrs['class'] = 'form-control'
+		self.fields['direction'].widget =  admin.widgets.AdminTextareaWidget()
 		self.fields['direction'].widget.attrs['placeholder'] = 'Indique la dirección'
 		self.fields['direction'].label = 'Dirección'
 
-		self.fields['description'].widget.attrs['class'] = 'form-control'
+		self.fields['description'].widget =  admin.widgets.AdminTextareaWidget()
 		self.fields['description'].widget.attrs['placeholder'] = 'Introduzca un valor'
 		self.fields['description'].label = 'Descripción'
 

@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelChoiceField
 from django.forms import ModelForm
 from .models import Division, Line, Category #, Unit, Equivalence, Product, InactiveProduct
+from django.contrib import admin
 
 class DivisionForm(ModelForm):
 	
@@ -17,7 +18,7 @@ class DivisionForm(ModelForm):
 		self.fields['name'].label = 'Nombre División'
 		self.fields['name'].help_text = '<span class="form-text text-muted"><small>Ejemplo: Carne, Embutidos, etc</small></span>'
 
-		self.fields['description'].widget.attrs['class'] = 'form-control'
+		self.fields['description'].widget =  admin.widgets.AdminTextareaWidget()
 		self.fields['description'].widget.attrs['placeholder'] = 'Inrese un breve texto'
 		self.fields['description'].label = 'Descripción'
 
@@ -43,7 +44,7 @@ class LineForm(ModelForm):
 		self.fields['name'].label = 'Nombre Linea'
 		self.fields['name'].help_text = '<span class="form-text text-muted"><small>Ejemplo: Carne roja, carne blanca</small></span>'
 
-		self.fields['description'].widget.attrs['class'] = 'form-control'
+		self.fields['description'].widget =  admin.widgets.AdminTextareaWidget()
 		self.fields['description'].widget.attrs['placeholder'] = 'Inrese un breve texto'
 		self.fields['description'].label = 'Descripción'
 
@@ -68,7 +69,7 @@ class CategoryForm(ModelForm):
 		self.fields['name'].label = 'Nombre Cateoria'
 		self.fields['name'].help_text = '<span class="form-text text-muted"><small>Ejemplo:</small></span>'
 
-		self.fields['description'].widget.attrs['class'] = 'form-control'
+		self.fields['description'].widget =  admin.widgets.AdminTextareaWidget()
 		self.fields['description'].widget.attrs['placeholder'] = 'Ingrese un breve texto'
 		self.fields['description'].label = 'Descripción'
 
@@ -134,7 +135,7 @@ class CategoryForm(ModelForm):
 #		self.fields['short_name'].label = 'Nombre Corto'
 #		self.fields['short_name'].help_text = '<span class="form-text text-muted"><small>Ejemplo: Carne, Embutidos, etc</small></span>'
 #
-#		self.fields['description'].widget.attrs['class'] = 'form-control'
+#		self.fields['description'].widget =  admin.widgets.AdminTextareaWidget()
 #		self.fields['description'].label = 'Descripción'
 #
 #		self.fields['stock'].widget.attrs['class'] = 'form-control'

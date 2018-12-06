@@ -1,5 +1,5 @@
 {% extends 'navigation/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block title %}Editar datos de la División {% endblock %}
 
 {% block content %}
@@ -35,7 +35,7 @@
 		        			 <fieldset>
 								{% csrf_token %}
 								<div class="col-xs-8 col-md-offset-2">
-									{{ form.as_p}}
+									<p> {{ form | crispy }} </p>
 									<button class="btn btn-primary pull-right" type="submit"> Actualizar </button>
 								</div>
 							 </fieldset>
