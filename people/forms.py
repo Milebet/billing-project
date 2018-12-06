@@ -9,16 +9,13 @@ class PersonForm(ModelForm):
 		fields = '__all__'
 		exclude = ("register_at",)
 
-	field_order = ['person_type','document_type','document_id','first_name','second_name','last_name','second_last_name','direction','email']
+	field_order = ['document_type','document_id','first_name','second_name','last_name','second_last_name','direction',]
 
 	def __init__(self, *args, **kwargs):
 		super(PersonForm,self).__init__(*args, **kwargs)
 
 		self.fields['document_type'].widget.attrs['class'] = 'form-control'
 		self.fields['document_type'].label = 'Tipo de Documento'
-
-		self.fields['person_type'].widget.attrs['class'] = 'form-control'
-		self.fields['person_type'].label = 'Tipo de Persona'
 
 		self.fields['document_id'].widget.attrs['class'] = 'form-control'
 		self.fields['document_id'].widget.attrs['placeholder'] = 'Introduzca su documento de identidad'
@@ -32,6 +29,7 @@ class PersonForm(ModelForm):
 		self.fields['second_name'].widget.attrs['class'] = 'form-control'
 		self.fields['second_name'].widget.attrs['placeholder'] = 'Nombre 2'
 		self.fields['second_name'].label = 'Segundo Nombre'
+		self.fields['second_name'].required = False
 
 		self.fields['last_name'].widget.attrs['class'] = 'form-control'
 		self.fields['last_name'].widget.attrs['placeholder'] = 'Apellido 1'
@@ -40,11 +38,7 @@ class PersonForm(ModelForm):
 		self.fields['second_last_name'].widget.attrs['class'] = 'form-control'
 		self.fields['second_last_name'].widget.attrs['placeholder'] = 'Apellido 2'
 		self.fields['second_last_name'].label = 'Segundo Apellido'
-
-		self.fields['email'].widget.attrs['class'] = 'form-control'
-		self.fields['email'].widget.attrs['placeholder'] = 'Introduzca su correo electrónico'
-		self.fields['email'].label = 'Correo Electrónico'
-		self.fields['email'].help_text = '<span class="form-text text-muted"><small>nombre@dominio.com</small></span>'
+		self.fields['second_last_name'].required = False
 
 		self.fields['direction'].widget.attrs['class'] = 'form-control'
 		self.fields['direction'].label = 'Dirección'
@@ -52,7 +46,7 @@ class PersonForm(ModelForm):
 class EditProfileForm(ModelForm):
 	class Meta:
 		model = Person
-		fields = ('first_name','second_name','last_name','second_last_name','email','direction')
+		fields = ('first_name','second_name','last_name','second_last_name','direction')
 
 	def __init__(self, *args, **kwargs):
 		super(EditProfileForm,self).__init__(*args, **kwargs)
@@ -64,6 +58,7 @@ class EditProfileForm(ModelForm):
 		self.fields['second_name'].widget.attrs['class'] = 'form-control'
 		self.fields['second_name'].widget.attrs['placeholder'] = 'Nombre 2'
 		self.fields['second_name'].label = 'Segundo Nombre'
+		self.fields['second_name'].required = False
 
 		self.fields['last_name'].widget.attrs['class'] = 'form-control'
 		self.fields['last_name'].widget.attrs['placeholder'] = 'Apellido 1'
@@ -72,11 +67,7 @@ class EditProfileForm(ModelForm):
 		self.fields['second_last_name'].widget.attrs['class'] = 'form-control'
 		self.fields['second_last_name'].widget.attrs['placeholder'] = 'Apellido 2'
 		self.fields['second_last_name'].label = 'Segundo Apellido'
-
-		self.fields['email'].widget.attrs['class'] = 'form-control'
-		self.fields['email'].widget.attrs['placeholder'] = 'Introduzca su correo electrónico'
-		self.fields['email'].label = 'Correo Electrónico'
-		self.fields['email'].help_text = '<span class="form-text text-muted"><small>nombre@dominio.com</small></span>'
+		self.fields['second_last_name'].required = False
 
 		self.fields['direction'].widget.attrs['class'] = 'form-control'
 		self.fields['direction'].label = 'Dirección'

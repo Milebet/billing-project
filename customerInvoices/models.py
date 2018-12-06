@@ -8,6 +8,7 @@ from django.db import models
 #
 #class Customer(models.Model):
 #	last_purchase_date = models.DateTimeField()
+#	email = models.EmailField(max_length=100)
 #	person = models.OneToOneField(
 #        Person,
 #        on_delete=models.CASCADE,

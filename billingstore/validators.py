@@ -12,14 +12,18 @@ def validate_ruc(document_id):
 
 	received_length = len(str(document_id))
 	if not equal_values(accepted_length,received_length):
-		raise ValidationError('Solo se permiten %s caracteres' %(accepted_length))
+		raise ValidationError(
+			_('%(document_id)s Solo se permiten %s caracteres'  %(accepted_length)),
+			params={'document_id': document_id},)
 	else:
 		ruc_array = list(map(int,str(document_id)))
 		third_digit_received = ruc_array[2]
 		establishment_number_received = ruc_array[9:]
 		if not equal_values(third_digit_accepted, third_digit_received) or not\
 			   equal_values(establishment_number, establishment_number_received):
-			return ValidationError('Formato de RUC invalido')
+			   raise ValidationError(
+			   	_('%(document_id)s Formato de RUC invalido'),
+			   	params={'document_id': document_id},)
 		else:
 			#los dos primeros digitos deben estar entre 01 y 24
 			provicincial_code_received = int(str(document_id)[:2])
@@ -38,9 +42,13 @@ def validate_ruc(document_id):
 				if equal_values(check_digit, ruc_array[position_digit_calculator-1]):
 					return True
 				else:
-					return ValidationError('Formato de RUC invalido')
+					raise ValidationError(
+						_('%(document_id)s Formato de RUC invalido'),
+						params={'document_id': document_id},)
 			else:
-				return ValidationError('Formato de RUC invalido')
+				raise ValidationError(
+						_('%(document_id)s Formato de RUC invalido'),
+						params={'document_id': document_id},)
 
 def validate_ruc_natural_juridical(document_id):
 	accepted_length= 13
@@ -54,14 +62,18 @@ def validate_ruc_natural_juridical(document_id):
 
 	received_length = len(str(document_id))
 	if not equal_values(accepted_length,received_length):
-		return False
+		raise ValidationError(
+			_('%(document_id)s Solo se permiten %s caracteres'  %(accepted_length)),
+			params={'document_id': document_id},)
 	else:
 		ruc_array = list(map(int,str(document_id)))
 		third_digit_received = ruc_array[2]
 		establishment_number_received = ruc_array[9:]
 		if not equal_values(third_digit_accepted, third_digit_received) or not\
 			   equal_values(establishment_number, establishment_number_received):
-			return False
+			   raise ValidationError(
+				_('%(document_id)s Formato de RUC invalido'),
+				params={'document_id': document_id},)
 		else:
 			#los dos primeros digitos deben estar entre 01 y 24
 			provicincial_code_received = int(str(document_id)[:2])
@@ -82,9 +94,13 @@ def validate_ruc_natural_juridical(document_id):
 				if equal_values(check_digit, ruc_array[position_digit_calculator-1]):
 					return True
 				else:
-					return False
+					raise ValidationError(
+						_('%(document_id)s Formato de RUC invalido'),
+						params={'document_id': document_id},)
 			else:
-				return False
+				raise ValidationError(
+					_('%(document_id)s Formato de RUC invalido'),
+					params={'document_id': document_id},)
 
 def validate_document_person(document_id):
 	received_length = len(str(document_id))

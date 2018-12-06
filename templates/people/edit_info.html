@@ -3,31 +3,50 @@
 {% block title %}Editar Datos Personales{% endblock %}
 
 {% block content %}
+<section class="content-header">
 	<div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Editar mis datos personales</h1>
-        </div>
-        <!-- /.col-lg-12 -->
-	     <div class="col-md-10 col-md-offset-1">
-		    <div class="panel panel-default">
-		        <div class="panel-heading">
-		            <h3 class="panel-title">Por favor, llene los siguientes campos</h3>
+		<div class="box box-primary">
+	        <div class="box-header">
+		        <div class="col-lg-12">
+		            <h1 class="text-center"><strong>Editar mis datos personales</strong></h1>
 		        </div>
-		        <div class="panel-body">
-	        		<form method="post" role="form"> 
-	        			 <fieldset>
-							{% csrf_token %}
-							<div class="col-xs-8 col-md-offset-2">
-								{{ form.as_p}}
-								<button class="btn btn-primary" type="submit"> Actualizar </button>
-							</div>
-						 </fieldset>
-					</form>
-					<br/>
-						<p><small><a href="{% url 'edit' %}">Pulsa aqui</a> para cambiar tus datos de usuario</small></p>
-						<p><small><a href="{% url 'change_password' %}">Pulsa aqui</a> para cambiar tu contraseña</small></p>
-		        </div>
-		    </div>
+	        </div>
+	        <!-- /.col-lg-12 -->
+		     <div class="col-md-10 col-md-offset-1">
+		     	<br/>
+			    <div class="panel panel-default">
+			        <div class="panel-heading">
+			            <h3 class="panel-title"><strong>Por favor, llene los siguientes campos</strong></h3>
+			        </div>
+			        <div class="panel-body">
+		        		<form method="post" role="form"> 
+		        		{% if form.errors %}
+                          <div class="alert alert-warning alert-dismissable" role="alert">
+                            <button class="close" data-dismiss="alert">
+                              <small><sup></sup></small>
+                            </button>
+                            {% for field in form %}
+                                {% if field.errors %}
+                                    {{field.errors}}
+                                {% endif %}
+                            {% endfor %}
+                          </div>
+                        {% endif %}
+		        			 <fieldset>
+								{% csrf_token %}
+								<div class="col-xs-8 col-md-offset-2">
+									{{ form.as_p}}
+									<button class="btn btn-primary pull-right" type="submit"> Actualizar </button>
+								</div>
+							 </fieldset>
+						</form>
+						<br/>
+							<p><small><strong><a href="{% url 'users:edit' user_id %}">Pulsa aqui</a> para cambiar tus datos de usuario</small></strong></p>
+							<p><strong><small><a href="{% url 'users:change_password' user_id %}">Pulsa aqui</a> para cambiar tu contraseña</small><strong></p>
+			        </div>
+			    </div>
+			</div>
 		</div>
     </div>
+</section>
 {% endblock %}

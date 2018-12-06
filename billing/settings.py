@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
+from django.utils.translation import ugettext_lazy as _
 
 import os
 
@@ -46,12 +47,15 @@ INSTALLED_APPS = [
     'customerInvoices.apps.CustomerinvoicesConfig',
     'products.apps.ProductsConfig',
     'betterforms',
+    'cities_light',
+    'locations.apps.LocationsConfig',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -71,6 +75,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -91,10 +96,9 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -114,6 +118,20 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CITIES_LIGHT_TRANSLATION_LANGUAGES = ['es', 'en']
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['EC']
+CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT',]
+
+AJAX_LOOKUP_CHANNELS = {
+    'cities_light_country': ('cities_light.lookups', 'CountryLookup'),
+    'cities_light_city': ('cities_light.lookups', 'CityLookup'),
+}
+
+MIGRATION_MODULES = {
+    'cities_light': None
+}
+
+CITIES_LIGHT_APP_NAME = 'locations' 
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -127,6 +145,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LANGUAGES = (('es', 'Spanish'),('en','english'))
+LOCALE_PATH = os.path.join(BASE_DIR, 'locale')
 
 
 # Static files (CSS, JavaScript, Images)

@@ -1,0 +1,99 @@
+{% extends 'navigation/base.html' %}
+{% block content %}
+<section class="content-header">
+	<div class="row">
+		<div class="box box-primary">
+	        <div class="box-header">
+		        <div class="col-lg-12">
+		            <h1 class="text-center"><strong>Linea: {{ linea.name }}</strong></h1>
+		        </div>
+	        </div>
+	        <!-- /.col-lg-12 -->
+		     <div class="col-md-10 col-md-offset-1">
+		     	<br/>
+			    <div class="panel panel-default">
+			        <div class="panel-body">
+			        	<div class="row">
+			                <div class="col-lg-12">
+			                    <div class="panel panel-default">
+			                        <div class="panel-heading">
+			                            <strong>Linea</strong>
+			                        </div>
+			                        <!-- /.panel-heading -->
+			                        <div class="panel-body">
+			                            <!-- Nav tabs -->
+			                            <ul class="nav nav-tabs">
+			                                <li class="active"><a href="#my_info" data-toggle="tab"><strong>Datos de la Linea</strong></a>
+			                                </li>
+			                            </ul>
+			                            <!-- Tab panes -->
+			                            <div class="tab-content">
+			                                <div class="tab-pane fade in active" id="my_info">
+			                                    <div class="col-md-6 col-md-offset-3">
+										            <div class="table-responsive">
+											            <table class="table table-condensed table-responsive table-user-information">
+											                <tbody>
+											                    <tr>        
+											                        <td>
+											                            <strong>
+											                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
+											                                Nombre              
+											                            </strong>
+											                        </td>
+											                        <td class="text-primary">
+											                            {{line.name}}    
+											                        </td>
+											                    </tr>
+											                    <tr>    
+											                        <td>
+											                            <strong>
+											                                <span class="glyphicon glyphicon-user  text-primary"></span>    
+											                                Descripción </strong>
+											                        </td>
+											                        <td class="text-primary">
+											                            {{line.description}}     
+											                        </td>
+											                    </tr>
+											                    <tr>        
+											                        <td>
+											                            <strong>
+											                                <span class="glyphicon glyphicon-cloud text-primary"></span>  
+											                                Estatus             
+											                            </strong>
+											                        </td>
+											                        <td class="text-primary">
+											                            {{line.status}}   
+											                        </td>
+											                    </tr>
+											                    <tr>        
+											                        <td>
+											                            <strong>
+											                                <span class="glyphicon glyphicon-bookmark text-primary"></span> 
+											                                División           
+											                            </strong>
+											                        </td>
+											                        <td class="text-primary">
+											                            {{line.division}} 
+											                        </td>
+											                    </tr>                             
+											                </tbody>
+											            </table>
+										            </div>
+										            <div class="pull-right"> <a href="{% url 'products:edit_line' line.id %}" class="btn btn-primary btn-flat">Editar Linea</a></div>
+										         </div>
+			                                </div>
+			                            </div>
+			                        </div>
+			                        <!-- /.panel-body -->
+			                    </div>
+			                    <!-- /.panel -->
+			                </div>
+			                <!-- /.col-lg-6 -->
+			            </div>
+			        </div>
+			    </div>
+			</div>
+    	</div>
+    </div>
+</section>
+{% endblock %}

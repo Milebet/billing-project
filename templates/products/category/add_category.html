@@ -1,0 +1,48 @@
+{% extends 'navigation/base.html' %}
+
+{% block title %} Add Category {% endblock %}
+
+{% block content %}
+<section class="content-header">
+	<div class="row">
+		<div class="box box-primary">
+	        <div class="box-header">
+		        <div class="col-lg-12">
+		            <h1 class="text-center"><strong>Agregar Categoria</strong></h1>
+		        </div>
+	        </div>
+	        <!-- /.col-lg-12 -->
+		     <div class="col-md-10 col-md-offset-1">
+		     	<br/>
+			    <div class="panel panel-default">
+			        <div class="panel-heading">
+			            <h3 class="panel-title"><strong>Por favor, llene los siguientes campos</strong></h3>
+			        </div>
+			        <div class="panel-body">
+		        		<form method="post" role="form"> 
+			        		{% if form.errors %}
+	                          <div class="alert alert-warning alert-dismissable" role="alert">
+	                            <button class="close" data-dismiss="alert">
+	                              <small><sup></sup></small>
+	                            </button>
+	                            {% for field in form %}
+	                                {% if field.errors %}
+	                                    {{field.errors}}
+	                                {% endif %}
+	                            {% endfor %}
+	                          </div>
+	                        {% endif %}
+			                <fieldset>
+			                	{% csrf_token %}
+			                   {{form.as_p}}
+			                    <!-- Change this to a button or input when using this as a form -->
+			                    <button type="submit" class="btn btn-primary btn-lg btn-block">Agregar</button>
+			                </fieldset>
+		           	 	</form>
+		       		</div>
+		    	</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
