@@ -38,7 +38,7 @@ def edit_division(request, division_id):
 	else:
 		form = DivisionForm(instance=division)
 	
-	context = {'form': form}
+	context = {'form': form, 'division_id': division_id}
 	return render(request, 'products/division/edit_division.html',context)
 
 def show_division(request,division_id):
@@ -79,7 +79,7 @@ def edit_line(request, line_id):
 	else:
 		form = LineForm(instance=line)
 	
-	context = {'form': form}
+	context = {'form': form, 'line_id': line_id}
 	return render(request, 'products/line/edit_line.html',context)
 
 def show_line(request,line_id):
@@ -120,7 +120,7 @@ def edit_category(request, category_id):
 	else:
 		form = CategoryForm(instance=category)
 	
-	context = {'form': form}
+	context = {'form': form, 'category_id':category_id}
 	return render(request, 'products/category/edit_category.html',context)
 
 def show_category(request,category_id):

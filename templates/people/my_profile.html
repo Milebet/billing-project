@@ -1,6 +1,16 @@
 {% extends 'navigation/base.html' %}
 {% block content %}
 <section class="content-header">
+  <h1>
+    Usuarios
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a href="{% url 'users:index'%}"> Lista de Usuarios</a></li>
+    <li class="active">{{customUser.username}}</li>
+  </ol>
+</section>
+<section class="content-header">
 	<div class="row">
 		<div class="box box-primary">
 	        <div class="box-header">
@@ -43,7 +53,7 @@
 											                            </strong>
 											                        </td>
 											                        <td class="text-primary">
-											                            {{user.person.document_id}}    
+											                            {{customUser.person.document_id}}    
 											                        </td>
 											                    </tr>
 											                    <tr>    
@@ -54,7 +64,7 @@
 											                            </strong>
 											                        </td>
 											                        <td class="text-primary">
-											                            {{user.person.first_name}}     
+											                            {{customUser.person.first_name}}     
 											                        </td>
 											                    </tr>
 											                    <tr>        
@@ -65,7 +75,7 @@
 											                            </strong>
 											                        </td>
 											                        <td class="text-primary">
-											                            {{user.person.second_name}}   
+											                            {{customUser.person.second_name}}   
 											                        </td>
 											                    </tr>
 
@@ -77,7 +87,7 @@
 											                            </strong>
 											                        </td>
 											                        <td class="text-primary">
-											                            {{user.person.last_name}} 
+											                            {{customUser.person.last_name}} 
 											                        </td>
 											                    </tr>
 
@@ -90,7 +100,7 @@
 											                            </strong>
 											                        </td>
 											                        <td class="text-primary">
-											                            {{user.person.second_last_name}} 
+											                            {{customUser.person.second_last_name}} 
 											                        </td>
 											                    </tr>
 											                    <tr>        
@@ -101,13 +111,13 @@
 											                            </strong>
 											                        </td>
 											                        <td class="text-primary">
-											                            {{user.person.direction}} 
+											                            {{customUser.person.direction}} 
 											                        </td>
 											                    </tr>                                  
 											                </tbody>
 											            </table>
 										            </div>
-										            <div class="pull-right"> <a href="{% url 'users:update_info_person' user.id %}" class="btn btn-primary btn-flat">Editar mi datos</a></div>
+										            <div class="pull-right"> <a href="{% url 'users:update_info_person' customUser.id %}" class="btn btn-primary btn-flat">Editar mi datos</a></div>
 										         </div>
 			                                </div>
 			                                <div class="tab-pane fade" id="profile">
@@ -123,7 +133,7 @@
 											                            </strong>
 											                        </td>
 											                        <td class="text-primary">
-											                            {{user.username}}    
+											                            {{customUser.username}}    
 											                        </td>
 											                    </tr>
 											                    <tr>        
@@ -144,7 +154,7 @@
 											                            </strong>
 											                        </td>
 											                        <td class="text-primary">
-											                            {{user.email}} 
+											                            {{customUser.email}} 
 											                        </td>
 											                    </tr>
 											                     <tr>        
@@ -155,7 +165,7 @@
 											                            </strong>
 											                        </td>
 											                        <td class="text-primary">
-											                            {{user.status_user}}    
+											                            {{customUser.status_user}}    
 											                        </td>
 											                    </tr>
 											                     <tr>        
@@ -166,13 +176,13 @@
 											                            </strong>
 											                        </td>
 											                        <td class="text-primary">
-											                            {{user.rol_user}}    
+											                            {{customUser.rol_user}}    
 											                        </td>
 											                    </tr>                        
 											                </tbody>
 											            </table>
 										            </div>
-										            <div class="pull-right"> <a href="{% url 'users:edit' user.id %}" class="btn btn-primary btn-flat">Editar datos de Usuario</a></div>
+										            <div class="pull-right"> <a href="{% url 'users:edit' customUser.id %}" class="btn btn-primary btn-flat">Editar datos de Usuario</a></div>
 										         </div>
 			                                </div>
 			                            </div>

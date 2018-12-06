@@ -4,6 +4,17 @@
 
 {% block content %}
 <section class="content-header">
+  <h1>
+    Divisiones
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a href="{% url 'products:index_division'%}"> Divisiones </a></li>
+    <li><a href="{% url 'products:show_division' division_id%}"> Ver División</a></li>
+    <li class="active">Editar división</li>
+  </ol>
+</section>
+<section class="content-header">
 	<div class="row">
 		<div class="box box-primary">
 	        <div class="box-header">
@@ -36,6 +47,7 @@
 								{% csrf_token %}
 								<div class="col-xs-8 col-md-offset-2">
 									<p> {{ form | crispy }} </p>
+									<a class="btn btn-warning pull-right" href="{% url 'products:show_division' division_id %}"> Cancelar </a>
 									<button class="btn btn-primary pull-right" type="submit"> Actualizar </button>
 								</div>
 							 </fieldset>

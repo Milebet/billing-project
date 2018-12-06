@@ -3,9 +3,16 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-	<!-- Content Header (Page header) -->
-        <section class="content-header">
+      <section class="content-header">
+          <h1>
+            Bienvenido
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+          </ol><br/>
         </section>
+        <div class="box box-primary">
+        </div>
 
         <!-- Main content -->
         <section class="content">

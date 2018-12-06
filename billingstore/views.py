@@ -44,7 +44,7 @@ def edit_company(request, company_id):
 	else:
 		form = CompanyForm(instance=company)
 	
-	context = {'form': form}
+	context = {'form': form, 'company_id': company_id}
 	return render(request, 'billingstore/edit_company.html',context)
 
 def edit_brand(request, company_id, brand_id):
@@ -62,5 +62,5 @@ def edit_brand(request, company_id, brand_id):
 	else:
 		form = BrandForm(instance=brand)
 	
-	context = {'form': form}
-	return render(request, 'billingstore/edit_company.html',context)
+	context = {'form': form, 'company_id': company_id, 'brand_id':brand_id}
+	return render(request, 'billingstore/edit_brand.html',context)

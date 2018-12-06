@@ -93,12 +93,12 @@ def edit_user(request, user_id):
 
 def show_user(request,user_id):
 	user = get_object_or_404(CustomUser,id=user_id)
-	return render(request,'people/my_profile.html',{'user':user})
+	return render(request,'people/my_profile.html',{'customUser':user})
 
 #view for personal info (name, last nae)
 def personal_info(request, user_id):
 	user = CustomUser.objects.get(id=user_id)
-	return render(request,'people/my_profile.html',{'user': request.user})
+	return render(request,'people/my_profile.html',{'customUser': request.user})
 
 #view for update personal info (name, last name)
 def update_info_person(request, user_id):

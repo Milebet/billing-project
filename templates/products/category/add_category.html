@@ -4,6 +4,16 @@
 
 {% block content %}
 <section class="content-header">
+  <h1>
+    Categorias
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a href="{% url 'products:index_category'%}"> Categorias </a></li>
+    <li class="active">Agregar Categoria</li>
+  </ol>
+</section>
+<section class="content-header">
 	<div class="row">
 		<div class="box box-primary">
 	        <div class="box-header">
@@ -35,8 +45,9 @@
 			                <fieldset>
 			                	{% csrf_token %}
 			                   <p> {{ form | crispy }} </p>
+			                   <a class="btn btn-warning pull-right" href="{% url 'products:index_category' %}"> Cancelar </a>
 			                    <!-- Change this to a button or input when using this as a form -->
-			                    <button type="submit" class="btn btn-primary btn-lg btn-block">Agregar</button>
+			                    <button type="submit" class="btn btn-primary pull-right">Agregar</button>
 			                </fieldset>
 		           	 	</form>
 		       		</div>

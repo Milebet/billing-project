@@ -1,6 +1,16 @@
 {% extends 'navigation/base.html' %}
 {% block content %}
 <section class="content-header">
+  <h1>
+    Divisiones
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="{% url 'home' %}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a href="{% url 'products:index_division'%}"> Divisiones </a></li>
+    <li class="active">{{ division.name }}</li>
+  </ol>
+</section>
+<section class="content-header">
 	<div class="row">
 		<div class="box box-primary">
 	        <div class="box-header">
@@ -36,7 +46,7 @@
 											                    <tr>        
 											                        <td>
 											                            <strong>
-											                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
+											                                <span class="glyphicon glyphicon-chevron-right text-primary"></span>
 											                                Nombre              
 											                            </strong>
 											                        </td>
@@ -47,7 +57,7 @@
 											                    <tr>    
 											                        <td>
 											                            <strong>
-											                                <span class="glyphicon glyphicon-user  text-primary"></span>    
+											                                <span class="glyphicon glyphicon-chevron-right  text-primary"></span>    
 											                                Descripción </strong>
 											                        </td>
 											                        <td class="text-primary">
@@ -57,7 +67,7 @@
 											                    <tr>        
 											                        <td>
 											                            <strong>
-											                                <span class="glyphicon glyphicon-cloud text-primary"></span>  
+											                                <span class="glyphicon glyphicon-chevron-right text-primary"></span>  
 											                                Estatus             
 											                            </strong>
 											                        </td>
@@ -68,7 +78,7 @@
 											                    <tr>        
 											                        <td>
 											                            <strong>
-											                                <span class="glyphicon glyphicon-bookmark text-primary"></span> 
+											                                <span class="glyphicon glyphicon-chevron-right text-primary"></span> 
 											                                Compañia           
 											                            </strong>
 											                        </td>
