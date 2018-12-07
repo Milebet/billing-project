@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'cities_light',
     'locations.apps.LocationsConfig',
     'crispy_forms',
+    'rest_framework',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -164,3 +165,9 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

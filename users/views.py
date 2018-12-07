@@ -35,11 +35,12 @@ def sign_up(request):
 			person.second_last_name = form['person']['second_last_name'].data
 			person.direction = form['person']['direction'].data
 			person.save()
-			user = form['user'].save(commit=False)
-			user.person = person
-			user.save()
+			new_user = CustomUser()
+			new_user = form['user'].save(commit=False)
+			new_user.person = person
+			new_user.save()
 			messages.success(request,('The user has been created..'))
-			return redirect('index')
+			return redirect('users:index')
 		else:
 			messages.error(request,"The form has errors")
 			form = UserCreationMultiForm(data=request.POST)
@@ -62,9 +63,10 @@ def change_password(request, user_id):
 		form = CustomChangePasswordForm(data=request.POST, user= user )
 		if form.is_valid():
 			form.save()
-			update_session_auth_hash(request, form.user)
+			update_session_auth_hash(request, user)
+			login(request, user)
 			messages.success(request,('You have updated your password...'))
-			return redirect('users:personal_info', user)
+			return redirect('users:personal_info', user.id)
 		else:
 			messages.error(request,('Something went wrong'))
 			form = CustomChangePasswordForm(data=request.POST, user= user)
@@ -98,7 +100,7 @@ def show_user(request,user_id):
 #view for personal info (name, last nae)
 def personal_info(request, user_id):
 	user = CustomUser.objects.get(id=user_id)
-	return render(request,'people/my_profile.html',{'customUser': request.user})
+	return render(request,'people/my_profile.html',{'customUser': user})
 
 #view for update personal info (name, last name)
 def update_info_person(request, user_id):

@@ -39,7 +39,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 		self.fields['username'].widget.attrs['class'] = 'form-control'
 		self.fields['username'].widget.attrs['placeholder'] = 'Introduzca su nombre de usuario.'
-		self.fields['username'].label = _(u'Nombre de Usuario')
+		self.fields['username'].label = ('Nombre de Usuario')
 		self.fields['username'].help_text = '<span class="form-text text-muted"><small>Letras de la a-z, digitos son aceptados.</small></span>'
 		
 		self.fields['password1'].widget.attrs['class'] = 'form-control'
@@ -107,3 +107,28 @@ class CustomUserChangeForm(UserChangeForm):
 		self.fields['rol_user'].widget.attrs['disabled'] = True
 		self.fields['rol_user'].required = False
 		
+class CustomUserAdminChangeForm(UserChangeForm):
+
+	password = forms.CharField(label="", max_length=100, widget= forms.TextInput(attrs={'type':'hidden'}))
+
+	class Meta(UserChangeForm):
+		model = CustomUser
+		fields = ('username','email', 'status_user', 'rol_user', 'password')
+
+	def __init__(self, *args, **kwargs):
+		super(CustomUserAdminChangeForm,self).__init__(*args, **kwargs)
+
+		self.fields['username'].widget.attrs['class'] = 'form-control'
+		self.fields['username'].label = 'Nombre de Usuario'
+		self.fields['username'].help_text = '<span class="form-text text-muted"><small>Letras de la a-z, digitos son aceptados.</small></span>'
+		
+		self.fields['email'].widget.attrs['class'] = 'form-control'
+		self.fields['email'].widget.attrs['placeholder'] = 'Introduzca su correo electrónico'
+		self.fields['email'].label = 'Correo Electrónico'
+		self.fields['email'].help_text = '<span class="form-text text-muted"><small>Ejemplo: nombre@dominio.com</small></span>'
+		
+		self.fields['status_user'].widget.attrs['class'] = 'form-control'
+		self.fields['status_user'].label = 'Estatus'
+		
+		self.fields['rol_user'].widget.attrs['class'] = 'form-control'
+		self.fields['rol_user'].label = 'Tipo de Usuario'

@@ -4,10 +4,12 @@ from people.models import Person
 from billingstore.models import Brand
 #from django.contrib.auth.decorators import login_required
 
+#https://www.youtube.com/watch?v=5x97gGspzjY
+#https://docs.djangoproject.com/en/2.1/topics/auth/customizing/
+
 #@login_required(login_url='login/')
 
 class CustomUser(AbstractUser):
-	id = models.AutoField(auto_created=True, primary_key=True, serialize=False, default=1)
 	OPTIONS_STATUS = (('active','Activo'),('inactive', 'Inactivo'),)
 	status_user = models.CharField(max_length=10, choices=OPTIONS_STATUS, default='active',)
 	OPTIONS_ROL = (('admin','Administrador'),('seller', 'Vendedor'),)

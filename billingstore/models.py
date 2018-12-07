@@ -48,5 +48,5 @@ class Brand(models.Model):
 	class Meta:
 		get_latest_by = 'register_at'
 		ordering = ['-register_at']
-		verbose_name = 'brans'
+		verbose_name = 'brand'
 		verbose_name_plural = 'brands'
