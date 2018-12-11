@@ -34,6 +34,7 @@ class CustomUser(AbstractUser):
 	OPTIONS_ROL = (('admin','Administrador'),('seller', 'Vendedor'),)
 	rol_user = models.CharField(max_length=10, choices=OPTIONS_ROL, default='admin',)
 	brand = models.ForeignKey(Brand, on_delete=models.CASCADE, default=1,)
+	email = models.EmailField(max_length=150, blank=False, unique=True)
 	person = models.OneToOneField(
         Person,
         on_delete=models.CASCADE,

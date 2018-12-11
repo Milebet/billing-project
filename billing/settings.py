@@ -87,6 +87,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'billing.wsgi.application'
 
+#from email
+
+EMAIL_USE_TLS = True 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'milebet.tacuri@gmail.com'
+EMAIL_HOST_PASSWORD = 'rogerfederer1991'
+EMAIL_PORT = 587
+
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases

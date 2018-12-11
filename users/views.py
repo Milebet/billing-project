@@ -1,17 +1,19 @@
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import user_passes_test, permission_required, login_required
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.models import Group
 from django.contrib.auth.hashers import check_password
+from django.contrib import messages
+from django.contrib.auth.forms import PasswordChangeForm
+from django.conf import settings 
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.urls import reverse_lazy
 from django.views import generic
-from django.contrib import messages 
-from django.contrib.auth.forms import PasswordChangeForm
-from .models import CustomUser
-from .forms import CustomUserCreationForm, UserCreationMultiForm, CustomUserChangeForm, CustomChangePasswordForm
 from people.models import Person
 from billingstore.models import Company, Brand
 from people.forms import EditProfileForm
+from .models import CustomUser
+from .forms import CustomUserCreationForm, UserCreationMultiForm, CustomUserChangeForm, CustomChangePasswordForm
 
 #Home users
 def Home(request):
@@ -50,6 +52,13 @@ def sign_up(request):
 					new_user.groups.add(Group.objects.get(name='Vendedor'))
 				else:
 					new_user.groups.add(Group.objects.get(name='Administrador'))
+
+				#send email
+				subject = "Se ha registrado su cuenta al sistema de Facturación"
+				message = "Bienvenido" 
+				from_email = settings.EMAIL_HOST_USER
+				to_list = [new_user.email, settings.EMAIL_HOST_USER]
+				send_mail(subject,message,from_email,to_list,fail_silently=False)
 
 				messages.success(request,('The user has been created..'))
 				return redirect('users:index')
