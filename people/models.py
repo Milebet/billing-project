@@ -41,3 +41,10 @@ class Person(models.Model):
 		ordering = ['-register_at']
 		verbose_name = 'person'
 		verbose_name_plural = 'people'
+
+	def get_full_name(self):
+		full_name = "%s %s %s %s" % (self.first_name, self.second_name, self.last_name, self.second_last_name)
+		return full_name.strip()
+
+	def get_short_name(self):
+		return self.first_name

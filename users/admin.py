@@ -5,19 +5,13 @@ from .forms import CustomUserCreationForm, CustomUserAdminChangeForm
 from .models import CustomUser
 
 class CustomUserAdmin(UserAdmin):
+	pass
 	add_form = CustomUserCreationForm
 	form = CustomUserAdminChangeForm
 	model = CustomUser
 	list_display = ['username', 'email', 'last_login','date_joined', 'status_user']
 	fieldsets = (
 		(None, {'fields': ('username', 'password', 'email')}),
-		('Admin info', {'fields': ('status_user','rol_user')}),
+		('Admin info', {'fields': ('status_user','rol_user', 'groups','is_superuser')}),
 		)
-	add_fieldsets = (
-    	(None, {
-    		'classes': ('wide',),
-    		'fields': ('username', 'email','status_user', 'rol_user', 'person', 'password1', 'password2')}
-    		),
-    	)
-
 admin.site.register(CustomUser, CustomUserAdmin)

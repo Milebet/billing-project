@@ -70,8 +70,8 @@ class UserCreationMultiForm(MultiModelForm):
 	error_css_class = 'error'
 	required_css_class = 'required'
 	form_classes = {
-		'person': PersonForm,
-		'user': CustomUserCreationForm
+		'user': CustomUserCreationForm,
+		'person': PersonForm
 	}
 	field_order = ['user','person']
 

@@ -1,5 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.decorators import user_passes_test, permission_required, login_required
+from django.contrib.auth.models import Group
 from django.contrib.auth.hashers import check_password
 from django.urls import reverse_lazy
 from django.views import generic
@@ -18,37 +20,50 @@ def Home(request):
 
 #index users
 def Index(request):
-	users = CustomUser.objects.all()
-	return render(request,'users/index.html',{'users': users})
-
-#Register users
-def sign_up(request):
-	if request.method == 'POST':
-		form = UserCreationMultiForm(data=request.POST)
-		if form.is_valid():
-			person = Person()
-			person.document_type = form['person']['document_type'].data
-			person.document_id = form['person']['document_id'].data
-			person.first_name = form['person']['first_name'].data
-			person.second_name = form['person']['second_name'].data
-			person.last_name = form['person']['last_name'].data
-			person.second_last_name = form['person']['second_last_name'].data
-			person.direction = form['person']['direction'].data
-			person.save()
-			new_user = CustomUser()
-			new_user = form['user'].save(commit=False)
-			new_user.person = person
-			new_user.save()
-			messages.success(request,('The user has been created..'))
-			return redirect('users:index')
-		else:
-			messages.error(request,"The form has errors")
-			form = UserCreationMultiForm(data=request.POST)
+	if request.user.is_authenticated:
+		users = CustomUser.objects.all()
+		return render(request,'users/index.html',{'users': users})
 	else:
-		form = UserCreationMultiForm()
-	
-	context = {'form': form}
-	return render(request, 'registration/signup.html',context)
+		messages.error(request,"Perission denied of your role")
+		return redirect('home')
+
+def sign_up(request):
+	if request.user.is_authenticated and request.user.has_perm('users.add_customuser'):
+		if request.method == 'POST':
+			form = UserCreationMultiForm(data=request.POST)
+			if form.is_valid():
+				person = Person()
+				person.document_type = form['person']['document_type'].data
+				person.document_id = form['person']['document_id'].data
+				person.first_name = form['person']['first_name'].data
+				person.second_name = form['person']['second_name'].data
+				person.last_name = form['person']['last_name'].data
+				person.second_last_name = form['person']['second_last_name'].data
+				person.direction = form['person']['direction'].data
+				person.save()
+				new_user = CustomUser()
+				new_user = form['user'].save(commit=False)
+				new_user.person = person
+				new_user.save()
+				#groups
+				if new_user.rol_user == 'seller':
+					new_user.groups.add(Group.objects.get(name='Vendedor'))
+				else:
+					new_user.groups.add(Group.objects.get(name='Administrador'))
+
+				messages.success(request,('The user has been created..'))
+				return redirect('users:index')
+			else:
+				messages.error(request,"The form has errors")
+				form = UserCreationMultiForm(data=request.POST)
+		else:
+			form = UserCreationMultiForm()
+		
+		context = {'form': form}
+		return render(request, 'registration/signup.html',context)
+	else:
+		messages.error(request,"Perission denied of your role")
+		return redirect('home')
 
 #log out session
 def logout_user(request):
@@ -58,45 +73,57 @@ def logout_user(request):
 
 #change password
 def change_password(request, user_id):
-	user = CustomUser.objects.get(id=user_id)
-	if request.method == 'POST':
-		form = CustomChangePasswordForm(data=request.POST, user= user )
-		if form.is_valid():
-			form.save()
-			update_session_auth_hash(request, user)
-			login(request, user)
-			messages.success(request,('You have updated your password...'))
-			return redirect('users:personal_info', user.id)
+	if (request.user.groups.filter(name='Administrador').exists()) or\
+	 (request.user.id == user_id):
+		user = CustomUser.objects.get(id=user_id)
+		if request.method == 'POST':
+			form = CustomChangePasswordForm(data=request.POST, user= user )
+			if form.is_valid():
+				form.save()
+				update_session_auth_hash(request, user)
+				login(request, user)
+				messages.success(request,('You have updated your password...'))
+				return redirect('users:personal_info', user.id)
+			else:
+				messages.error(request,('Something went wrong'))
+				form = CustomChangePasswordForm(data=request.POST, user= user)
 		else:
-			messages.error(request,('Something went wrong'))
-			form = CustomChangePasswordForm(data=request.POST, user= user)
+			form = CustomChangePasswordForm(user= user)
+		
+		context = {'form': form, 'user_id': user.id}
+		return render(request, 'users/change_password.html',context)
 	else:
-		form = CustomChangePasswordForm(user= user)
-	
-	context = {'form': form, 'user_id': user.id}
-	return render(request, 'users/change_password.html',context)
+		messages.error(request,"Permission denied of your role")
+		return redirect('home')
 
 def edit_user(request, user_id):
-	user = CustomUser.objects.get(id = user_id)
-	if request.method == 'POST':
-		form = CustomUserChangeForm(request.POST, instance= user )
-		if form.is_valid():
-			form.save()
-			messages.success(request,('You have Edited your User Account...'))
-			return redirect('users:personal_info',user_id)
+	if (request.user.groups.filter(name='Administrador').exists()) or\
+	 (request.user.id == user_id):
+		user = CustomUser.objects.get(id = user_id)
+		if request.method == 'POST':
+			form = CustomUserChangeForm(request.POST, instance= user )
+			if form.is_valid():
+				form.save()
+				messages.success(request,('You have Edited your User Account...'))
+				return redirect('users:personal_info',user_id)
+			else:
+				messages.error(request,('Something went wrong'))
+				form = CustomUserChangeForm(request.POST, instance= user)
 		else:
-			messages.error(request,('Something went wrong'))
-			form = CustomUserChangeForm(request.POST, instance= user)
+			form = CustomUserChangeForm(instance= user)
+		
+		context = {'form': form, 'user_id': user_id}
+		return render(request, 'users/edit_account.html',context)
 	else:
-		form = CustomUserChangeForm(instance= user)
-	
-	context = {'form': form, 'user_id': user_id}
-	return render(request, 'users/edit_account.html',context)
+		messages.error(request,"Permission denied of your role")
+		return redirect('home')
 
+@login_required()
 def show_user(request,user_id):
 	user = get_object_or_404(CustomUser,id=user_id)
 	return render(request,'people/my_profile.html',{'customUser':user})
 
+@login_required()
 #view for personal info (name, last nae)
 def personal_info(request, user_id):
 	user = CustomUser.objects.get(id=user_id)
@@ -104,18 +131,23 @@ def personal_info(request, user_id):
 
 #view for update personal info (name, last name)
 def update_info_person(request, user_id):
-	user = CustomUser.objects.get(id=user_id)
-	if request.method == 'POST':
-		form = EditProfileForm(request.POST, instance= user.person )
-		if form.is_valid():
-			form.save()
-			messages.success(request,('You have Edited your Profile...'))
-			return redirect('users:personal_info', user.id)
+	if (request.user.groups.filter(name='Administrador').exists()) or\
+	 (request.user.id == user_id):
+		user = CustomUser.objects.get(id=user_id)
+		if request.method == 'POST':
+			form = EditProfileForm(request.POST, instance= user.person )
+			if form.is_valid():
+				form.save()
+				messages.success(request,('You have Edited your Profile...'))
+				return redirect('users:personal_info', user.id)
+			else:
+				messages.error(request,('Something went wrong'))
+				form = EditProfileForm(request.POST, instance= user.person)
 		else:
-			messages.error(request,('Something went wrong'))
-			form = EditProfileForm(request.POST, instance= user.person)
+			form = EditProfileForm(instance= user.person)
+		
+		context = {'form': form, 'user_id': user_id}
+		return render(request, 'people/edit_info.html',context)
 	else:
-		form = EditProfileForm(instance= user.person)
-	
-	context = {'form': form, 'user_id': user_id}
-	return render(request, 'people/edit_info.html',context)
+		messages.error(request,"Permission denied of your role")
+		return redirect('home')
